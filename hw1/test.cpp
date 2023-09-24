@@ -5,6 +5,8 @@
 #include <cassert>
 #include "user.h"
 #include "network.h"
+#include "user.cpp"
+#include "network.cpp"
 
 using namespace std;
 
@@ -96,7 +98,7 @@ void test_remove_connection()
     vector<size_t> janes_friends;
     janes_friends.push_back(1);
     janes_friends.push_back(3);
-    
+
     User *user1 = new User(3, "John Doe", 1999, 12345, johns_friends);
     User *user2 = new User(4, "Jane Doe", 2000, 54321, janes_friends);
     network->add_user(user1);

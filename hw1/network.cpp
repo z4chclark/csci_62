@@ -62,6 +62,7 @@ int Network::read_users(char *filename)
     }
 
     file.close();
+    return 0;
 }
 
 void Network::add_user(User *user)
@@ -78,7 +79,7 @@ int Network::add_connection(std::string s1, std::string s2)
     {
         return -1;
     }
-    else if (id1 == NULL || id2 == NULL)
+    else if (id1 == -1 || id2 == -1)
     {
         return -1;
     }
@@ -101,7 +102,7 @@ int Network::remove_connection(std::string s1, std::string s2)
     {
         return -1;
     }
-    else if (id1 == NULL || id2 == NULL)
+    else if (id1 == -1 || id2 == -1)
     {
         return -1;
     }
@@ -124,7 +125,7 @@ size_t Network::get_id(std::string name)
             return users[i]->get_id();
         }
     }
-    return NULL;
+    return -1;
 }
 
 User *Network::get_user(size_t id)
