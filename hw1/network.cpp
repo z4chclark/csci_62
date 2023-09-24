@@ -9,7 +9,7 @@
 
 Network::Network()
 {
-    users = {};
+    users = std::vector<User *>();
 }
 
 int Network::read_users(char *filename)
