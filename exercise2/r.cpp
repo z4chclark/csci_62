@@ -3,21 +3,36 @@ using namespace std;
 
   class Rectangle {
   public:
-    float l,w;
-    Rectangle(float ll, float ww) {
-      l=ll; w = ww;
+    float length, width;
+    Rectangle (float input_length, float input_width) {
+      length = input_length; width = input_width;
     }
-    float a() { return l*w; }
-    float p() { return 2*(l+w); }
+
+    /*
+    pre: none
+    post: returns the area of the rectangle
+    */
+    float area() { 
+      return length * width; 
+    }
+    /*
+    pre: none
+    post: returns the perimeter of the rectangle
+    */
+    float perimeter() {
+      return 2 * (length + width);
+    }
   };
 
 int main() 
 {
-    float l,w;
-    cout << "Enter the length of the rectangle: ";cin>>l;
-    cout << "Enter the width of the rectangle: ";cin>>w;
-    Rectangle r(l, w);
-    cout << "Rectangle Area: " << r.a() << endl;
-    cout << "Rectangle Perimeter: " << r.p() << endl;
+    float length, width;
+    cout << "Enter the length of the rectangle: ";
+    cin >> length;
+    cout << "Enter the width of the rectangle: ";
+    cin >> width;
+    Rectangle my_rectangle(length, width);
+    cout << "Rectangle Area: " << my_rectangle.area() << endl;
+    cout << "Rectangle Perimeter: " << my_rectangle.perimeter() << endl;
     return 0;
 }

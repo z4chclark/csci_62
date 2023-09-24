@@ -10,7 +10,7 @@ User::User()
     name = "";
     birth_year = 0;
     zip_code = 0;
-    friends = {};
+    friends = std::vector<size_t>();
 }
 
 User::User(size_t input_id, std::string input_name, size_t input_birth_year, size_t input_zip_code, std::vector<size_t> input_friends)
