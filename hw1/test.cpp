@@ -1,3 +1,4 @@
+// no bugs caught
 
 #include <iostream>
 #include <string>
@@ -43,6 +44,34 @@ void test_user_getters_setters()
     cout << "Passed!" << endl;
 }
 
+void test_user_add_friend()
+{
+    cout << "Testing User add_friend..." << endl;
+    vector<size_t> friends;
+    friends.push_back(1);
+    friends.push_back(2);
+    User *user = new User(3, "John Doe", 1999, 12345, friends);
+    user->add_friend(4);
+    friends.push_back(4);
+    assert(user->get_friends() == friends);
+
+    cout << "Passed!" << endl;
+}
+
+void test_user_delete_friend()
+{
+    cout << "Testing User delete_friend..." << endl;
+    vector<size_t> friends;
+    friends.push_back(1);
+    friends.push_back(2);
+    User *user = new User(3, "John Doe", 1999, 12345, friends);
+    user->delete_friend(2);
+    friends.pop_back();
+    assert(user->get_friends() == friends);
+
+    cout << "Passed!" << endl;
+}
+
 void test_network_constructor()
 {
     cout << "Testing Network constructor..." << endl;
@@ -82,6 +111,8 @@ void test_add_connection()
     network->add_user(user1);
     network->add_user(user2);
     network->add_connection("John Doe", "Jane Doe");
+    johns_friends.push_back(4);
+    janes_friends.push_back(3);
     assert(network->get_user(3)->get_friends() == johns_friends);
     assert(network->get_user(4)->get_friends() == janes_friends);
 
@@ -145,6 +176,8 @@ int main()
 {
     test_user_constructor();
     test_user_getters_setters();
+    test_user_add_friend();
+    test_user_delete_friend();
     test_network_constructor();
     test_add_user();
     test_add_connection();

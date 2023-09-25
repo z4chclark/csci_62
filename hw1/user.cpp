@@ -68,3 +68,27 @@ void User::set_zip_code(size_t input_zip_code)
 {
     zip_code = input_zip_code;
 }
+
+void User::add_friend(size_t friend_id)
+{
+    for (size_t i = 0; i < friends.size(); i++)
+    {
+        if (friends[i] == friend_id)
+        {
+            return;
+        }
+    }
+    friends.push_back(friend_id);
+}
+
+void User::delete_friend(size_t friend_id)
+{
+    for (size_t i = 0; i < friends.size(); i++)
+    {
+        if (friends[i] == friend_id)
+        {
+            friends.erase(friends.begin() + i);
+            return;
+        }
+    }
+}
