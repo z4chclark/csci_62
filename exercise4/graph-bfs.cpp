@@ -120,7 +120,37 @@
 
 
   // pre: from < n(), to < n()
-// post: returns a vector listing the ids of the vertices along the shortest path between vertex 'from' and vertex 'to'
-std::vector<std::size_t> shortestPath(std::size_t from, std::size_t to);
+  // post: returns a vector listing the ids of the vertices along the shortest path between vertex 'from' and vertex 'to'
+  std::vector<std::size_t> Graph::shortestPath(std::size_t from, std::size_t to) 
+  {
+    std::vector<std::size_t> output;
+    std::queue<std::size_t> q; // First in, first out
+    std::vector<bool> visited(n(), 0); // vector of n zeros
+    std::vector<std::size_t> prev(n(), 0); // vector of n zeros
+
+    // implement a BFS that returns the list of vertices along the shortest path
+    // from vertex 'from' to vertex 'to'
+
+    q.push(from); // Add Shweta to queue
+
+    while (q.size() > 0) {
+      // Visit the next user
+      std::size_t currentId = q.front();
+      q.pop();
+
+      if (visited[currentId]) { continue; }
+      std::cout << "Visiting vertex " << currentId << std::endl;
+      visited[currentId] = true;
+
+      // Add current user to output
+      output.push_back(currentId);
+
+      // Add their friends to queue
+      for (int i = 0; i < adjList_[currentId].size(); i ++) {
+       q.push(adjList_[currentId][i]);
+      }
+    }
+    return output;
+  }
 
 

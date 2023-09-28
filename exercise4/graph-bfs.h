@@ -42,6 +42,10 @@ public:
   // post: returns list of vertices connected to source
   std::vector<std::size_t> connectedList(std::size_t source);
 
+  // pre: from < n(), to < n()
+  // post: returns a vector listing the ids of the vertices along the shortest path between vertex 'from' and vertex 'to'
+  std::vector<std::size_t> shortestPath(std::size_t from, std::size_t to);
+
  private:
   std::vector<std::vector<std::size_t> > adjList_;
 
