@@ -39,6 +39,14 @@ public:
     User(size_t input_id, std::string input_name, size_t input_birth_year, size_t input_zip_code, std::vector<size_t> input_friends);
 
     /**
+     * @brief Destructor for User class.
+     *
+     * @pre None.
+     * @post The User object is destroyed.
+     */
+    ~User();
+
+    /**
      * @brief Adds a friend to the User's friend list.
      *
      * @param new_friend The ID of the new friend to add.

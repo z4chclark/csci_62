@@ -12,7 +12,15 @@ Network::Network()
     users = std::vector<User *>();
 }
 
-int Network::read_users(char *filename)
+Network::~Network()
+{
+    for (size_t i = 0; i < users.size(); i++)
+    {
+        delete users[i];
+    }
+}
+
+int Network::read_users(const char *filename)
 {
     std::ifstream file(filename);
     if (!file.is_open())
@@ -24,44 +32,76 @@ int Network::read_users(char *filename)
     file >> num_users;
     file.ignore();
 
-    std::vector<User> users;
-
     for (int i = 0; i < num_users; i++)
     {
-        User user;
+        User *user = new User();
         size_t id;
         std::string name;
         size_t birth_year;
         size_t zip_code;
-        std::vector<size_t> friends;
         std::string friend_id_string;
 
         file >> id;
-        user.set_id(id);
-        file.ignore();
+        user->set_id(id);
+        file.ignore(); // Skip the newline character
 
         std::getline(file, name);
-        user.set_name(name);
+        name.erase(0, 1); // remove leading \t character
+        user->set_name(name);
 
         file >> birth_year;
-        user.set_birth_year(birth_year);
-        file.ignore();
+        user->set_birth_year(birth_year);
+        file.ignore(); // Skip the newline character
 
         file >> zip_code;
-        user.set_zip_code(zip_code);
-        file.ignore();
+        user->set_zip_code(zip_code);
+        file.ignore(); // Skip the newline character
+
+        std::getline(file, friend_id_string); // Read the entire line into friend_id_string
 
         std::istringstream iss(friend_id_string);
         size_t friend_id;
+
         while (iss >> friend_id)
-        {
-            friends.push_back(friend_id);
+        {   
+            user->add_friend(friend_id);
         }
 
-        users.push_back(user);
+        this->add_user(user);
     }
 
     file.close();
+    return 0;
+}
+
+int Network::write_users(const char *filename)
+{
+    std::ofstream output_file(filename);
+
+    if (!output_file.is_open())
+    {
+        return -1; // file not open or not found
+    }
+
+    output_file << users.size() << std::endl;
+
+    for (size_t i = 0; i < users.size(); i++)
+    {
+        output_file << users[i]->get_id() << std::endl;
+        output_file << "\t" << users[i]->get_name() << std::endl;
+        output_file << "\t" << users[i]->get_birth_year() << std::endl;
+        output_file << "\t" << users[i]->get_zip_code() << std::endl;
+        output_file << "\t";
+
+        std::vector<size_t> friends = users[i]->get_friends();
+
+        for (size_t j = 0; j < friends.size(); j++)
+        {   
+            output_file << friends[j] << " ";
+        }
+        output_file << std::endl;
+    }
+
     return 0;
 }
 

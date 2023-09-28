@@ -19,6 +19,14 @@ public:
     Network();
 
     /**
+     * @brief Destroy the Network object.
+     *
+     * @pre None.
+     * @post The Network object is destroyed.
+     */
+    ~Network();
+
+    /**
      * @brief Add a user to the network.
      *
      * @param user A pointer to the User object to be added.
@@ -67,7 +75,7 @@ public:
      * @pre filename is a valid file path.
      * @post The user data from the file is added to the network.
      */
-    int read_users(char *filename);
+    int read_users(const char *filename);
 
     /**
      * @brief Write user data to a file.
@@ -77,7 +85,7 @@ public:
      * @pre filename is a valid file path.
      * @post The user data is written to the file.
      */
-    int write_users(char *filename);
+    int write_users(const char *filename);
 
     /**
      * @brief Get the number of users in the network.

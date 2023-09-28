@@ -22,6 +22,9 @@ User::User(size_t input_id, std::string input_name, size_t input_birth_year, siz
     friends = input_friends;
 }
 
+User::~User() {
+}
+
 // getters
 size_t User::get_id()
 {
