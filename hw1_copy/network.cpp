@@ -63,7 +63,7 @@ int Network::read_users(const char *filename)
         size_t friend_id;
 
         while (iss >> friend_id)
-        {
+        {   
             user->add_friend(friend_id);
         }
 
@@ -96,7 +96,7 @@ int Network::write_users(const char *filename)
         std::vector<size_t> friends = users[i]->get_friends();
 
         for (size_t j = 0; j < friends.size(); j++)
-        {
+        {   
             output_file << friends[j] << " ";
         }
         output_file << std::endl;

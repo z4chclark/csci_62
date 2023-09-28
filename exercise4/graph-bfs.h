@@ -7,7 +7,8 @@
 
 // assumption: vertices are numbered 0, 1, ..., n-1
 
-class Graph {
+class Graph
+{
 public:
   // pre: none
   // post: an empty Graph has been created
@@ -46,11 +47,8 @@ public:
   // post: returns a vector listing the ids of the vertices along the shortest path between vertex 'from' and vertex 'to'
   std::vector<std::size_t> shortestPath(std::size_t from, std::size_t to);
 
- private:
-  std::vector<std::vector<std::size_t> > adjList_;
-
+private:
+  std::vector<std::vector<std::size_t>> adjList_;
 };
-
-
 
 #endif // GRAPH_H

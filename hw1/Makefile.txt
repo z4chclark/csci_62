@@ -1,0 +1,26 @@
+# Makefile 
+
+CXX = g++
+CXXFLAGS = -Wall -02
+
+SRC =  social_network.cpp network.cpp user.cpp
+HDR = social_network.h user.h
+OBJ = $(SRC:.cpp=.o)
+
+TARGET = run_the_program
+
+# Default target
+all: $(TARGET)
+
+# Rule to build object files from source files
+%.o: %.cpp $(HDR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Rule to build the executable
+$(TARGET): $(OBJ)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+# Phony target for cleaning
+.PHONY: clean
+clean:
+	rm -f $(OBJ) $(TARGET)
