@@ -6,8 +6,8 @@
 #include <sstream>
 #include <limits>
 
-#include "user.cpp"
-#include "network.cpp"
+#include "user.h"
+#include "network.h"
 
 using namespace std;
 
