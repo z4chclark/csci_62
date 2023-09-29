@@ -6,8 +6,6 @@
 #include <cassert>
 #include "user.h"
 #include "network.h"
-#include "user.cpp"
-#include "network.cpp"
 
 using namespace std;
 

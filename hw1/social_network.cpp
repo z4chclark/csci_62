@@ -65,7 +65,7 @@ int main()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     string input;
-    char choice;
+    char choice = '0';
 
     while (choice != 7)
     {
@@ -180,6 +180,5 @@ int main()
             break;
         }
     }
-
     return 0;
 }

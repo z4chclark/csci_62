@@ -1,18 +1,12 @@
 COMP = g++
-FLAGS =-Wall -g
+FLAGS = -Wall -g
 
-output: social_network.o user.o network.o
-	$(COMP) social_network.o user.o network.o -o output
 
-user.o: user.cpp
-	$(COMP) -c $< -o $@
+output: social_network.o network.o user.o
+	$(COMP) -g social_network.o network.o user.o -o $@ $(FLAGS)
 
-network.o: network.cpp
-	$(COMP) -c $< -o $@
-
-social_network.o: social_network.cpp
-	$(COMP) -c $< -o $@
-
+%.o: %.cpp
+	$(COMP) -c $< -o $@ $(FLAGS)
 
 clean:
-	rm *.o
+	rm *.o output
