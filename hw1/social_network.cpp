@@ -69,15 +69,15 @@ int main()
 
     while (choice != 7)
     {
-        cout << "\nMenu\n"
-             << endl;
-        cout << "1. Add user" << endl;
-        cout << "2. Add connection" << endl;
-        cout << "3. Remove connection" << endl;
-        cout << "4. Print users" << endl;
-        cout << "5. Print friends" << endl;
-        cout << "6. Write to file" << endl;
-        cout << "7. Exit\n"
+        cout << "\nMenu\n\n"
+             << "1. Add user\n" 
+             << "2. Add connection\n"
+             << "3. Remove connection\n"
+             << "4. Print users\n"
+             << "5. Print friends\n" 
+             << "6. Write to file\n"
+             << "7. Shortest path\n" 
+             << "8. Exit\n"
              << endl;
 
         getline(cin, input);
@@ -173,6 +173,16 @@ int main()
         }
 
         case '7':
+        {
+            string name1 = v[1] + ' ' + v[2];
+            string name2 = v[3] + ' ' + v[4];
+            size_t id1 = network->get_id(name1);
+            size_t id2 = network->get_id(name2);
+            network->shortestPath(id1, id2);
+            break;
+        }
+
+        case '8':
             exit(0);
 
         default:
