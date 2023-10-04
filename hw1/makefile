@@ -10,3 +10,7 @@ output: social_network.o network.o user.o
 
 clean:
 	rm *.o output
+
+
+test: output
+	./output < input.txt

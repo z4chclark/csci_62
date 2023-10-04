@@ -70,13 +70,13 @@ int main()
     while (choice != 7)
     {
         cout << "\nMenu\n\n"
-             << "1. Add user\n" 
+             << "1. Add user\n"
              << "2. Add connection\n"
              << "3. Remove connection\n"
              << "4. Print users\n"
-             << "5. Print friends\n" 
+             << "5. Print friends\n"
              << "6. Write to file\n"
-             << "7. Shortest path\n" 
+             << "7. Shortest path\n"
              << "8. Exit\n"
              << endl;
 

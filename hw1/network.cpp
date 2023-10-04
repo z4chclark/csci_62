@@ -4,6 +4,8 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
+#include <queue>
 #include "user.h"
 #include "network.h"
 
@@ -185,20 +187,53 @@ size_t Network::num_users()
     return users.size();
 }
 
-
-std::vector<std::size_t> Network::shortestPath(std::size_t from, std::size_t to) 
+std::vector<std::size_t> Network::shortestPath(std::size_t from, std::size_t to)
 {
     std::vector<std::size_t> path;
     std::vector<std::size_t> visited;
-    std::vector<std::size_t> queue;
+    std::vector<std::size_t> parent;
+    std::queue<std::size_t> queue;
 
-    queue.push_back(from);
+    queue.push(from);
     visited.push_back(from);
+    parent.push_back(-1);
 
-    
+    while (!queue.empty())
+    {
 
+        std::size_t current = queue.front();
+        queue.pop();
 
+        if (current == to)
+        {
+            size_t current_node = to;
+            size_t parent_node = parent.back();
 
+            path.push_back(current_node);
 
-    return path;
+            while (current_node != -1)
+            {
+                std::vector<size_t>::iterator index;
+
+                path.push_back(parent_node);
+                index = std::find(visited.begin(), visited.end(), parent_node);
+
+                current_node = parent[*index];
+            }
+
+            return path;
+        }
+
+        std::vector<std::size_t> friends = get_user(current)->get_friends();
+
+        for (std::size_t i = 0; i < friends.size(); i++)
+        {
+            if (std::find(visited.begin(), visited.end(), friends[i]) == visited.end())
+            {
+                queue.push(friends[i]);
+                visited.push_back(friends[i]);
+                parent.push_back(current);
+            }
+        }
+    }
 }
