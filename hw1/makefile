@@ -14,3 +14,6 @@ clean:
 
 run: output
 	./output < input.txt
+
+test: test.cpp
+	$(COMP) -c $< -o $@ $(FLAGS)

@@ -134,14 +134,20 @@ public:
 
     /**
      * @brief Suggest friends for a user.
-     * 
+     *
      * @param who The ID of the user.
      * @param score The score of the user.
-     * 
+     *
      * @return std::vector<std::size_t> vector of with that score.
-    */
-    std::vector<std::size_t> suggestFriends(std::size_t who, std::size_t& score);
-};
+     */
+    std::vector<std::size_t> suggestFriends(std::size_t who, std::size_t &score);
 
+    /**
+     * @brief Find all disjointed groups of users in the network.
+     *
+     * @return vector<vector<std::size_t> > vector of vectors of users in each group.
+     */
+    std::vector<std::vector<std::size_t> > groups();
+};
 
 #endif

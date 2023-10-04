@@ -14,7 +14,7 @@ using namespace std;
 void print_users(Network *network)
 {
     cout << setw(7) << left << "\nID" << setw(25) << left << "Name" << setw(6) << left << "Year" << setw(5) << left << "Zip" << endl;
-    cout << "========================================" << endl;
+    cout << "===========================================" << endl;
 
     for (size_t i = 0; i < network->num_users(); i++)
     {
@@ -24,14 +24,14 @@ void print_users(Network *network)
         cout << setw(6) << left << current_user->get_birth_year();
         cout << setw(5) << left << current_user->get_zip_code() << endl;
     }
-    cout << "========================================\n"
+    cout << "===========================================\n"
          << endl;
 }
 
 void print_friends(Network *network, string name)
 {
     cout << setw(7) << left << "\nID" << setw(25) << left << "Name" << setw(6) << left << "Year" << setw(5) << left << "Zip" << endl;
-    cout << "========================================" << endl;
+    cout << "===========================================" << endl;
 
     size_t id = network->get_id(name);
     User *user = network->get_user(id);
@@ -99,20 +99,13 @@ int main()
         {
             string name = v[1] + ' ' + v[2];
 
-            if (network->get_id(name) != -1)
-            {
-                User *new_user = new User(network->num_users(),
-                                          name,
-                                          stoi(v[3]),
-                                          stoi(v[4]),
-                                          vector<size_t>());
+            User *new_user = new User(network->num_users(),
+                                      name,
+                                      stoi(v[3]),
+                                      stoi(v[4]),
+                                      vector<size_t>());
 
-                network->add_user(new_user);
-            }
-            else
-            {
-                cout << "\nInvalid input" << endl;
-            }
+            network->add_user(new_user);
 
             break;
         }
@@ -254,7 +247,6 @@ int main()
             vector<size_t> suggested_friends = network->suggestFriends(id1, *score);
 
             cout << "The suggested friend(s) is/are: " << endl;
-            cout << suggested_friends.size() << endl;
             for (size_t i = 0; i < suggested_friends.size(); i++)
             {
                 cout << network->get_user(suggested_friends[i])->get_name()
@@ -266,6 +258,22 @@ int main()
 
         case 10:
         {
+            vector<vector<size_t> > groups = network->groups();
+
+            size_t set_number = 1;
+            for (vector<size_t> group : groups)
+            {
+                cout << "Set " << set_number << " => " << network->get_user(group[0])->get_name();
+                for (size_t id = 1; id < group.size(); id++)
+                {
+                    string current_name = network->get_user(id)->get_name();
+                    cout << ", " << current_name;
+                }
+                cout << endl;
+                set_number++;
+            }
+
+            break;
         }
 
         case 11:

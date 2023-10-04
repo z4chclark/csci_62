@@ -276,7 +276,7 @@ std::vector<std::size_t> Network::suggestFriends(std::size_t who, std::size_t &s
     std::vector<size_t> path;
     std::queue<size_t> queue;
 
-    score = -1;
+    score = 0;
     queue.push(who);
     visited[who] = 1;
 
@@ -285,16 +285,16 @@ std::vector<std::size_t> Network::suggestFriends(std::size_t who, std::size_t &s
         size_t current = queue.front();
         queue.pop();
 
-        path = shortestPath(who, current);
+        size_t neighbor_distance = shortestPath(who, current).size();
 
-        if (path.size() == 3)
+        if (neighbor_distance == 2)
         {
             suggested_friends.push_back(current);
         }
 
         std::vector<size_t> friends = get_user(current)->get_friends();
 
-        for (size_t i = 0; i < friends.size(); i++)
+        for (std::size_t i = 0; i < friends.size(); i++)
         {
             if (visited[friends[i]] == 0)
             {
@@ -304,58 +304,73 @@ std::vector<std::size_t> Network::suggestFriends(std::size_t who, std::size_t &s
         }
     }
 
-    std::cout << suggested_friends.size() << std::endl;
-
     for (size_t j = 0; j < suggested_friends.size(); j++)
     {
+        size_t count = 0;
         std::vector<size_t> friends_of_suggested = get_user(suggested_friends[j])->get_friends();
-        std::cout << get_user(suggested_friends[j])->get_name() << std::endl;
 
-        for (size_t k = 0; k < friends_of_suggested.size(); k++)
+        for (size_t k = 0; k < friends_of_who.size(); k++)
         {
-            size_t count = 0;
-            //std::cout << friends_of_suggested[k] << std::endl;
-
-            
-        }
-        
-
-
-
-
-
-
-
-
-
-
-        /* for (size_t k = 0; k < friends_of_who.size(); k++)
-        {
-            size_t count = 0;
 
             for (size_t n = 0; n < friends_of_suggested.size(); n++)
             {
                 if (friends_of_who[k] == friends_of_suggested[n])
                 {
-
                     count++;
                 }
             }
-            if (count > score)
-            {
-                std::cout << "if statement" << std::endl;
-                score = count;
-                best_candidates.clear();
-                best_candidates.push_back(suggested_friends[j]);
-            }
-            else if (count == score)
-            {
-                best_candidates.push_back(suggested_friends[j]);
-            }
-        } */
+        }
+
+        if (count > score)
+        {
+            score = count;
+            best_candidates.clear();
+            best_candidates.push_back(suggested_friends[j]);
+        }
+        else if (count == score)
+        {
+            best_candidates.push_back(suggested_friends[j]);
+        }
+        count = 0;
     }
-    std::cout << best_candidates.size() << std::endl;
-    std::cout << score << std::endl;
 
     return best_candidates;
+}
+
+std::vector<std::vector<std::size_t> > Network::groups()
+{
+    std::vector<std::vector<std::size_t> > groups;
+    std::vector<std::size_t> visited(num_users(), 0);
+    std::queue<std::size_t> queue;
+
+    for (std::size_t i = 0; i < num_users(); i++)
+    {
+        if (visited[i] == 0)
+        {
+            std::vector<std::size_t> group;
+            queue.push(i);
+            visited[i] = 1;
+
+            while (!queue.empty())
+            {
+                std::size_t current = queue.front();
+                queue.pop();
+
+                group.push_back(current);
+
+                std::vector<std::size_t> friends = get_user(current)->get_friends();
+
+                for (std::size_t j = 0; j < friends.size(); j++)
+                {
+                    if (visited[friends[j]] == 0)
+                    {
+                        queue.push(friends[j]);
+                        visited[friends[j]] = 1;
+                    }
+                }
+            }
+            groups.push_back(group);
+        }
+    }
+    return groups;
 }

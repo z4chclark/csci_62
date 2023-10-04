@@ -1,4 +1,10 @@
-social_network.txt
-8 Aled Montes 3
-9 Aled Montes
+nope
+1 Isaac Boone 2009 95023
+1 Jason Chen 2008 95032
+1 Asia Kane 2004 21412
+1 Jasmine Clements 2133 21312
+4
+2 Isaac Boone Jason Chen
+2 Asia Kane Jasmine Clements
+10
 11
