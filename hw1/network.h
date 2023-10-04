@@ -131,6 +131,17 @@ public:
      * @return std::vector<std::size_t> vector of users on the path.
      */
     std::vector<std::size_t> distanceUser(std::size_t from, std::size_t &to, std::size_t distance);
+
+    /**
+     * @brief Suggest friends for a user.
+     * 
+     * @param who The ID of the user.
+     * @param score The score of the user.
+     * 
+     * @return std::vector<std::size_t> vector of with that score.
+    */
+    std::vector<std::size_t> suggestFriends(std::size_t who, std::size_t& score);
 };
+
 
 #endif

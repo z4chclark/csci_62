@@ -235,8 +235,6 @@ std::vector<std::size_t> Network::distanceUser(std::size_t from, std::size_t &to
     std::vector<std::size_t> path;
     std::vector<std::size_t> visited(num_users(), 0);
     std::queue<std::size_t> queue;
-    size_t children = 0;
-    size_t level = 0;
 
     queue.push(from);
     visited[from] = 1;
@@ -256,7 +254,6 @@ std::vector<std::size_t> Network::distanceUser(std::size_t from, std::size_t &to
 
         std::vector<std::size_t> friends = get_user(current)->get_friends();
 
-        //depth first search
         for (std::size_t i = 0; i < friends.size(); i++)
         {
             if (visited[friends[i]] == 0)
@@ -268,4 +265,97 @@ std::vector<std::size_t> Network::distanceUser(std::size_t from, std::size_t &to
     }
     to = -1;
     return path;
+}
+
+std::vector<std::size_t> Network::suggestFriends(std::size_t who, std::size_t &score)
+{
+    std::vector<size_t> friends_of_who = get_user(who)->get_friends();
+    std::vector<size_t> suggested_friends;
+    std::vector<size_t> best_candidates;
+    std::vector<size_t> visited(num_users(), 0);
+    std::vector<size_t> path;
+    std::queue<size_t> queue;
+
+    score = -1;
+    queue.push(who);
+    visited[who] = 1;
+
+    while (!queue.empty())
+    {
+        size_t current = queue.front();
+        queue.pop();
+
+        path = shortestPath(who, current);
+
+        if (path.size() == 3)
+        {
+            suggested_friends.push_back(current);
+        }
+
+        std::vector<size_t> friends = get_user(current)->get_friends();
+
+        for (size_t i = 0; i < friends.size(); i++)
+        {
+            if (visited[friends[i]] == 0)
+            {
+                queue.push(friends[i]);
+                visited[friends[i]] = 1;
+            }
+        }
+    }
+
+    std::cout << suggested_friends.size() << std::endl;
+
+    for (size_t j = 0; j < suggested_friends.size(); j++)
+    {
+        std::vector<size_t> friends_of_suggested = get_user(suggested_friends[j])->get_friends();
+        std::cout << get_user(suggested_friends[j])->get_name() << std::endl;
+
+        for (size_t k = 0; k < friends_of_suggested.size(); k++)
+        {
+            size_t count = 0;
+            //std::cout << friends_of_suggested[k] << std::endl;
+
+            
+        }
+        
+
+
+
+
+
+
+
+
+
+
+        /* for (size_t k = 0; k < friends_of_who.size(); k++)
+        {
+            size_t count = 0;
+
+            for (size_t n = 0; n < friends_of_suggested.size(); n++)
+            {
+                if (friends_of_who[k] == friends_of_suggested[n])
+                {
+
+                    count++;
+                }
+            }
+            if (count > score)
+            {
+                std::cout << "if statement" << std::endl;
+                score = count;
+                best_candidates.clear();
+                best_candidates.push_back(suggested_friends[j]);
+            }
+            else if (count == score)
+            {
+                best_candidates.push_back(suggested_friends[j]);
+            }
+        } */
+    }
+    std::cout << best_candidates.size() << std::endl;
+    std::cout << score << std::endl;
+
+    return best_candidates;
 }

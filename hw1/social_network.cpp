@@ -77,7 +77,7 @@ int main()
              << "6. Write to file\n"
              << "7. Shortest path\n"
              << "8. Explore neighbors\n"
-
+             << "9. Suggest friends\n"
 
              << "11. Exit\n"
              << endl;
@@ -92,7 +92,7 @@ int main()
         {
             v.push_back(s);
         }
-        
+
         switch (stoi(v.front()))
         {
         case 1:
@@ -214,7 +214,7 @@ int main()
         }
 
         case 8:
-            {
+        {
             string name1 = v[1] + ' ' + v[2];
             size_t distance = stoi(v[3]);
             size_t id1 = network->get_id(name1);
@@ -225,9 +225,9 @@ int main()
                 break;
             }
 
-            size_t *to = new size_t;
+            size_t *to = new size_t; // to pointer
             vector<size_t> path = network->distanceUser(id1, *to, distance);
-        
+
             cout << network->get_user(*to)->get_name() << ": ";
             cout << network->get_user(path[0])->get_name();
 
@@ -237,22 +237,40 @@ int main()
             }
             cout << endl;
             break;
-
-            }
+        }
 
         case 9:
-            {
+        {
+            string name1 = v[1] + ' ' + v[2];
+            size_t id1 = network->get_id(name1);
 
+            if (id1 == -1)
+            {
+                cout << "\nInvalid input" << endl;
+                break;
             }
+
+            size_t *score = new size_t;
+            vector<size_t> suggested_friends = network->suggestFriends(id1, *score);
+
+            cout << "The suggested friend(s) is/are: " << endl;
+            cout << suggested_friends.size() << endl;
+            for (size_t i = 0; i < suggested_friends.size(); i++)
+            {
+                cout << network->get_user(suggested_friends[i])->get_name()
+                     << " Score: " << *score << endl;
+            }
+
+            break;
+        }
 
         case 10:
-            {
+        {
+        }
 
-            }
-        
         case 11:
             exit(0);
-    
+
         default:
             cout << "\nInvalid input" << endl;
             break;

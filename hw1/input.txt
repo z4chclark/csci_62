@@ -1,4 +1,4 @@
 social_network.txt
-4
 8 Aled Montes 3
+9 Aled Montes
 11
