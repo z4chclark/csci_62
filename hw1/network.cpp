@@ -183,11 +183,22 @@ User *Network::get_user(size_t id)
 size_t Network::num_users()
 {
     return users.size();
-
-
 }
 
 
-std::vector<std::size_t> Network::shortestPath(std::size_t from, std::size_t to) {
+std::vector<std::size_t> Network::shortestPath(std::size_t from, std::size_t to) 
+{
+    std::vector<std::size_t> path;
+    std::vector<std::size_t> visited;
+    std::vector<std::size_t> queue;
+
+    queue.push_back(from);
+    visited.push_back(from);
+
     
+
+
+
+
+    return path;
 }
