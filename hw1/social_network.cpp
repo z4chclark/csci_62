@@ -225,11 +225,11 @@ int main()
                 break;
             }
 
-            size_t to = 0;
-            vector<size_t> path = network->distanceUser(id1, to, distance);
+            size_t *to;
+            vector<size_t> path = network->distanceUser(id1, *to, distance);
         
             cout << to << endl;
-            cout << network->get_user(to)->get_name() << ": ";
+            cout << network->get_user(*to)->get_name() << ": ";
             
             for (size_t i = 0; i < path.size(); i++)
             {
