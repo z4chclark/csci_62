@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cassert>
+
 #include "user.h"
 #include "network.h"
 
