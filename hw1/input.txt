@@ -1,2 +1,3 @@
 social_network.txt
-7 Isaac Boone Jasmine Clements
+7 Isaac Guzman Frederick Murray
+8

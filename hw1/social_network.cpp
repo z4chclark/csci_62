@@ -178,8 +178,30 @@ int main()
             string name2 = v[3] + ' ' + v[4];
             size_t id1 = network->get_id(name1);
             size_t id2 = network->get_id(name2);
-            network->shortestPath(id1, id2);
+            
+            if (id1 == -1 || id2 == -1)
+            {
+                cout << "\nInvalid input" << endl;
+                break;
+            }
+            
+            vector<size_t> shortest_path = network->shortestPath(id1, id2);
+
+            if (shortest_path.size() == 1)
+            {
+                cout << "\nNo path between users" << endl;
+            }
+            else
+            {
+                cout << "Distance: " << shortest_path.size() - 1 << endl;
+                for (size_t i = 0; i < shortest_path.size(); i++)
+                {
+                    cout << shortest_path.at(i) << " -> ";
+                }
+                cout << endl;
+
             break;
+        }
         }
 
         case '8':

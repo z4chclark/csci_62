@@ -115,7 +115,7 @@ public:
      * @pre from and to are valid user IDs in the network.
      * @post None.
      */
-    std::vector<std::size_t> Network::shortestPath(std::size_t from, std::size_t to);
+    std::vector<std::size_t> shortestPath(std::size_t from, std::size_t to);
 
 private:
     std::vector<User *> users;

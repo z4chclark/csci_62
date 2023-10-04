@@ -12,5 +12,5 @@ clean:
 	rm *.o output
 
 
-test: output
+run: output
 	./output < input.txt
