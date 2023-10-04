@@ -170,6 +170,49 @@ void test_num_users()
     cout << "Passed!" << endl;
 }
 
+void test_shortestPath()
+{
+    cout << "Testing shortestPath..." << endl;
+    Network *network = new Network();
+    User *user1 = new User(0, "John Doe", 1999, 12345, vector<size_t>());
+    User *user2 = new User(1, "Jane Doe", 2000, 54321, vector<size_t>());
+    User *user3 = new User(2, "Bob Doe", 2001, 54321, vector<size_t>());
+
+    network->add_user(user1);
+    network->add_user(user2);
+    network->add_user(user3);
+
+    network->add_connection("John Doe", "Jane Doe");
+    network->add_connection("Jane Doe", "Bob Doe");
+
+    vector<size_t> expected_path;
+    expected_path.push_back(0);
+    expected_path.push_back(1);
+    expected_path.push_back(2);
+
+    assert(network->shortestPath(0, 2) == expected_path);
+
+    cout << "Passed!" << endl; 
+}
+
+void test_distanceUser()
+{
+
+}
+
+void test_suggestFriends()
+
+{
+
+
+}
+
+void test_groups()
+{
+
+}
+
+
 int main()
 {
     test_user_constructor();
