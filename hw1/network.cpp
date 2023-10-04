@@ -190,37 +190,28 @@ size_t Network::num_users()
 std::vector<std::size_t> Network::shortestPath(std::size_t from, std::size_t to)
 {
     std::vector<std::size_t> path;
-    std::vector<std::size_t> visited;
-    std::vector<std::size_t> parent;
+    std::vector<std::size_t> parent(num_users(), -1); // Initialize parent vector with -1
     std::queue<std::size_t> queue;
 
     queue.push(from);
-    visited.push_back(from);
-    parent.push_back(-1);
 
     while (!queue.empty())
     {
-
         std::size_t current = queue.front();
         queue.pop();
 
         if (current == to)
         {
-            size_t current_node = to;
-            size_t parent_node = parent.back();
+            std::size_t current_node = to;
 
-            path.push_back(current_node);
-
-            while (current_node != -1)
+            while (current_node != from)
             {
-                std::vector<size_t>::iterator index;
-
-                path.push_back(parent_node);
-                index = std::find(visited.begin(), visited.end(), parent_node);
-
-                current_node = parent[*index];
+                path.push_back(current_node);
+                current_node = parent[current_node];
             }
 
+            path.push_back(from);
+            std::reverse(path.begin(), path.end());
             return path;
         }
 
@@ -228,13 +219,26 @@ std::vector<std::size_t> Network::shortestPath(std::size_t from, std::size_t to)
 
         for (std::size_t i = 0; i < friends.size(); i++)
         {
-            if (std::find(visited.begin(), visited.end(), friends[i]) == visited.end())
+            if (parent[friends[i]] == -1)
             {
                 queue.push(friends[i]);
-                visited.push_back(friends[i]);
-                parent.push_back(current);
+                parent[friends[i]] = current;
             }
         }
     }
-    return path;
+
+    return path; // Return an empty path if no path is found
+}
+
+std::vector<std::size_t> Network::distanceUser(std::size_t from, std::size_t &to, std::size_t distance)
+{
+    std::vector<std::size_t> path;
+    std::vector<std::size_t> visited(num_users(), 0);
+    std::vector<std::size_t> parent(num_users(), -1); // Initialize parent vector with -1
+    std::queue<std::size_t> queue;
+
+    queue.push(from);
+    visited[from] = 1;
+
+    
 }

@@ -9,6 +9,10 @@
 
 class Network
 {
+
+private:
+    std::vector<User *> users;
+
 public:
     /**
      * @brief Construct a new Network object.
@@ -106,7 +110,7 @@ public:
      */
     User *get_user(size_t id);
 
-    /*
+    /**
      * @brief Get the shortest path between two users.
      *
      * @param from The ID of the first user.
@@ -117,8 +121,16 @@ public:
      */
     std::vector<std::size_t> shortestPath(std::size_t from, std::size_t to);
 
-private:
-    std::vector<User *> users;
+    /**
+     * @brief Find a user whose relational distance from the given user exactly matches the distance given
+     *
+     * @param from The ID of the first user.
+     * @param to The ID of the user found.
+     * @param distance The distance between the two users.
+     *
+     * @return std::vector<std::size_t> vector of users on the path.
+     */
+    std::vector<std::size_t> distanceUser(std::size_t from, std::size_t &to, std::size_t distance);
 };
 
 #endif

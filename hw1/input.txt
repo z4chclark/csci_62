@@ -1,3 +1,4 @@
 social_network.txt
-7 Isaac Guzman Frederick Murray
-8
+4
+8 Aled Montes 3 
+11

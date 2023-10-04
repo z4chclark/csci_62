@@ -65,9 +65,8 @@ int main()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     string input;
-    char choice = '0';
 
-    while (choice != 7)
+    while (true)
     {
         cout << "\nMenu\n\n"
              << "1. Add user\n"
@@ -77,7 +76,10 @@ int main()
              << "5. Print friends\n"
              << "6. Write to file\n"
              << "7. Shortest path\n"
-             << "8. Exit\n"
+             << "8. \n"
+
+
+             << "11. Exit\n"
              << endl;
 
         getline(cin, input);
@@ -90,10 +92,10 @@ int main()
         {
             v.push_back(s);
         }
-
-        switch (v.front()[0])
+        
+        switch (stoi(v.front()))
         {
-        case '1':
+        case 1:
         {
             string name = v[1] + ' ' + v[2];
 
@@ -115,7 +117,7 @@ int main()
             break;
         }
 
-        case '2':
+        case 2:
         {
             string name1 = v[1] + ' ' + v[2];
             string name2 = v[3] + ' ' + v[4];
@@ -131,7 +133,7 @@ int main()
             break;
         }
 
-        case '3':
+        case 3:
         {
             string name1 = v[1] + ' ' + v[2];
             string name2 = v[3] + ' ' + v[4];
@@ -145,11 +147,11 @@ int main()
             }
             break;
         }
-        case '4':
+        case 4:
             print_users(network);
             break;
 
-        case '5':
+        case 5:
         {
             string name = v[1] + ' ' + v[2];
 
@@ -165,14 +167,14 @@ int main()
             break;
         }
 
-        case '6':
+        case 6:
         {
             const char *filename = v[1].c_str();
             network->write_users(filename);
             break;
         }
 
-        case '7':
+        case 7:
         {
             string name1 = v[1] + ' ' + v[2];
             string name2 = v[3] + ' ' + v[4];
@@ -184,19 +186,26 @@ int main()
                 cout << "\nInvalid input" << endl;
                 break;
             }
+            else if (id1 == id2)
+            {
+                cout << "\nDistance: 0" << endl;
+                cout << network->get_user(id1)->get_name() << endl;
+                break;
+            }
 
             vector<size_t> shortest_path = network->shortestPath(id1, id2);
 
             if (shortest_path.size() == 1)
             {
-                cout << "\nNo path between users" << endl;
+                cout << "\nNone" << endl;
             }
             else
             {
                 cout << "Distance: " << shortest_path.size() - 1 << endl;
-                for (size_t i = 0; i < shortest_path.size(); i++)
+                cout << network->get_user(shortest_path[0])->get_name();
+                for (size_t i = 1; i < shortest_path.size(); i++)
                 {
-                    cout << shortest_path.at(i) << " -> ";
+                    cout << " -> " << network->get_user(shortest_path[i])->get_name();
                 }
                 cout << endl;
 
@@ -204,9 +213,45 @@ int main()
             }
         }
 
-        case '8':
-            exit(0);
+        case 8:
+            {
+            string name1 = v[1] + ' ' + v[2];
+            size_t distance = stoi(v[3]);
+            size_t id1 = network->get_id(name1);
 
+            if (id1 == -1)
+            {
+                cout << "\nInvalid input" << endl;
+                break;
+            }
+
+            size_t to = 0;
+            vector<size_t> path = network->distanceUser(id1, to, distance);
+        
+            cout << to << endl;
+            cout << network->get_user(to)->get_name() << ": ";
+            
+            for (size_t i = 0; i < path.size(); i++)
+            {
+                cout << network->get_user(path[i])->get_name() << ", ";
+            }
+            break;
+
+            }
+
+        case 9:
+            {
+
+            }
+
+        case 10:
+            {
+
+            }
+        
+        case 11:
+            exit(0);
+    
         default:
             cout << "\nInvalid input" << endl;
             break;
