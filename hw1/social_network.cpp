@@ -76,7 +76,7 @@ int main()
              << "5. Print friends\n"
              << "6. Write to file\n"
              << "7. Shortest path\n"
-             << "8. \n"
+             << "8. Explore neighbors\n"
 
 
              << "11. Exit\n"
@@ -225,16 +225,17 @@ int main()
                 break;
             }
 
-            size_t *to;
+            size_t *to = new size_t;
             vector<size_t> path = network->distanceUser(id1, *to, distance);
         
-            cout << to << endl;
             cout << network->get_user(*to)->get_name() << ": ";
-            
-            for (size_t i = 0; i < path.size(); i++)
+            cout << network->get_user(path[0])->get_name();
+
+            for (size_t i = 1; i < path.size(); i++)
             {
-                cout << network->get_user(path[i])->get_name() << ", ";
+                cout << ", " << network->get_user(path[i])->get_name();
             }
+            cout << endl;
             break;
 
             }

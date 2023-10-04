@@ -234,11 +234,38 @@ std::vector<std::size_t> Network::distanceUser(std::size_t from, std::size_t &to
 {
     std::vector<std::size_t> path;
     std::vector<std::size_t> visited(num_users(), 0);
-    std::vector<std::size_t> parent(num_users(), -1); // Initialize parent vector with -1
     std::queue<std::size_t> queue;
+    size_t children = 0;
+    size_t level = 0;
 
     queue.push(from);
     visited[from] = 1;
 
-    
+    while (!queue.empty())
+    {
+        std::size_t current = queue.front();
+        queue.pop();
+
+        path = shortestPath(from, current);
+
+        if (path.size() - 1 == distance)
+        {
+            to = current;
+            return path;
+        }
+
+        std::vector<std::size_t> friends = get_user(current)->get_friends();
+
+        //depth first search
+        for (std::size_t i = 0; i < friends.size(); i++)
+        {
+            if (visited[friends[i]] == 0)
+            {
+                queue.push(friends[i]);
+                visited[friends[i]] = 1;
+            }
+        }
+    }
+    to = -1;
+    return path;
 }
