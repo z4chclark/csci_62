@@ -106,10 +106,10 @@ public:
      */
     User *get_user(size_t id);
 
-    /* 
+    /*
      * @brief Get the shortest path between two users.
      *
-     * @param from The ID of the first user. 
+     * @param from The ID of the first user.
      * @param to The ID of the second user.
      * @return std::vector<std::size_t> A vector of user IDs representing the shortest path between the two users.
      * @pre from and to are valid user IDs in the network.

@@ -163,7 +163,7 @@ size_t Network::get_id(std::string name)
     for (size_t i = 0; i < users.size(); i++)
     {
         if (users[i]->get_name() == name)
-        {   
+        {
             return users[i]->get_id();
         }
     }
