@@ -9,11 +9,11 @@ output: social_network.o network.o user.o
 	$(COMP) -c $< -o $@ $(FLAGS)
 
 clean:
-	rm *.o output
+	rm *.o output test
 
 run: output
 	./output < input.txt
 
 test: test.o network.o user.o
-	$(COMP) -g $< -o $@ $(FLAGS)
+	g++ -o test test.cpp network.cpp user.cpp
 	./test
