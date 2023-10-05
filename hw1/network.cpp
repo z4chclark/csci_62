@@ -285,7 +285,7 @@ std::vector<std::size_t> Network::suggestFriends(std::size_t who, std::size_t &s
         size_t current = queue.front();
         queue.pop();
 
-        size_t neighbor_distance = shortestPath(who, current).size();
+        size_t neighbor_distance = shortestPath(who, current).size() - 1;
 
         if (neighbor_distance == 2)
         {

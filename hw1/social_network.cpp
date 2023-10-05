@@ -78,7 +78,7 @@ int main()
              << "7. Shortest path\n"
              << "8. Explore neighbors\n"
              << "9. Suggest friends\n"
-
+             << "10. Group\n"
              << "11. Exit\n"
              << endl;
 
@@ -115,7 +115,7 @@ int main()
             string name1 = v[1] + ' ' + v[2];
             string name2 = v[3] + ' ' + v[4];
 
-            if (network->add_connection(name1, name2))
+            if (network->add_connection(name1, name2) == 0)
             {
                 cout << "\nConnection added successfully" << endl;
             }
