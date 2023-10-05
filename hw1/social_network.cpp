@@ -245,6 +245,11 @@ int main()
 
             size_t *score = new size_t;
             vector<size_t> suggested_friends = network->suggestFriends(id1, *score);
+            
+            if (*score == -1) {
+                cout << "None" << endl;
+                break;
+            }
 
             cout << "The suggested friend(s) is/are: " << endl;
             for (size_t i = 0; i < suggested_friends.size(); i++)

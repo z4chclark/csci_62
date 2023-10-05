@@ -240,11 +240,69 @@ void test_distanceUser()
 
 void test_suggestFriends()
 {
+    cout << "Testing suggestFriends..." << endl;
+    Network *network = new Network();
+
+    User *user1 = new User(0, "John Doe", 1999, 12345, vector<size_t>());
+    User *user2 = new User(1, "Jane Doe", 2000, 54321, vector<size_t>());
+    User *user3 = new User(2, "Bob Doe", 2001, 54321, vector<size_t>());
+    User *user4 = new User(3, "Joe Doe", 2001, 54321, vector<size_t>());
+
+    network->add_user(user1);
+    network->add_user(user2);
+    network->add_user(user3);
+    network->add_user(user4);
+
+    network->add_connection("John Doe", "Bob Doe");
+    network->add_connection("John Doe", "Joe Doe");
+    network->add_connection("Jane Doe", "Bob Doe");
+    network->add_connection("Jane Doe", "Joe Doe");
+
+    size_t score = 0;
+
+    vector<size_t> expected_friends;
+    expected_friends.push_back(1);
+
+    assert(network->suggestFriends(0, score) == expected_friends);
+    assert(score == 2);
+
+    cout << "Passed!\n"
+         << endl;
     
 }
 
 void test_groups()
 {
+    cout << "Testing groups..." << endl;
+    Network *network = new Network();
+
+    User *user1 = new User(0, "John Doe", 1999, 12345, vector<size_t>());
+    User *user2 = new User(1, "Jane Doe", 2000, 54321, vector<size_t>());
+    User *user3 = new User(2, "Bob Doe", 2001, 54321, vector<size_t>());
+    User *user4 = new User(3, "Joe Doe", 2001, 54321, vector<size_t>());
+
+    network->add_user(user1);
+    network->add_user(user2);
+    network->add_user(user3);
+    network->add_user(user4);
+
+    network->add_connection("John Doe", "Jane Doe");
+    network->add_connection("Bob Doe", "Joe Doe");
+
+    vector<vector<size_t> > expected_groups;
+    vector<size_t> group1;
+    group1.push_back(0);
+    group1.push_back(1);
+    vector<size_t> group2;
+    group2.push_back(2);
+    group2.push_back(3);
+    expected_groups.push_back(group1);
+    expected_groups.push_back(group2);
+
+    assert(network->groups() == expected_groups);
+
+    cout << "Passed!\n"
+         << endl;
 }
 
 int main()
@@ -261,7 +319,8 @@ int main()
     test_num_users();
     test_shortestPath();
     test_distanceUser();
-    test_suggestFriends();
     test_groups();
+    test_suggestFriends();
+    
     return 0;
 }

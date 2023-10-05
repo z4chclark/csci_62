@@ -291,7 +291,7 @@ std::vector<std::size_t> Network::suggestFriends(std::size_t who, std::size_t &s
         {
             suggested_friends.push_back(current);
         }
-
+        
         std::vector<size_t> friends = get_user(current)->get_friends();
 
         for (std::size_t i = 0; i < friends.size(); i++)
@@ -327,13 +327,17 @@ std::vector<std::size_t> Network::suggestFriends(std::size_t who, std::size_t &s
             best_candidates.clear();
             best_candidates.push_back(suggested_friends[j]);
         }
-        else if (count == score)
+        else if (count == score && count != 0)
         {
             best_candidates.push_back(suggested_friends[j]);
         }
         count = 0;
     }
-
+    if (best_candidates.size() == 0)
+    {
+        score = -1;
+    }
+    
     return best_candidates;
 }
 
