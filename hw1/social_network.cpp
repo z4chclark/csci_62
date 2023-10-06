@@ -78,7 +78,7 @@ int main()
              << "7. Shortest path\n"
              << "8. Explore neighbors\n"
              << "9. Suggest friends\n"
-             << "10. Group\n"
+             << "10. Print groups\n"
              << "11. Exit\n"
              << endl;
 

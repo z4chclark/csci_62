@@ -345,21 +345,21 @@ std::vector<std::vector<std::size_t> > Network::groups()
 {
     std::vector<std::vector<std::size_t> > groups;
     std::vector<std::size_t> visited(num_users(), 0);
-    std::queue<std::size_t> queue;
+    std::vector<std::size_t> stack;
+
 
     for (std::size_t i = 0; i < num_users(); i++)
     {
         if (visited[i] == 0)
         {
             std::vector<std::size_t> group;
-            queue.push(i);
+            stack.push_back(i);
             visited[i] = 1;
 
-            while (!queue.empty())
+            while (!stack.empty())
             {
-                std::size_t current = queue.front();
-                queue.pop();
-
+                std::size_t current = stack[stack.size() - 1];
+                stack.pop_back();
                 group.push_back(current);
 
                 std::vector<std::size_t> friends = get_user(current)->get_friends();
@@ -368,7 +368,7 @@ std::vector<std::vector<std::size_t> > Network::groups()
                 {
                     if (visited[friends[j]] == 0)
                     {
-                        queue.push(friends[j]);
+                        stack.push_back(friends[j]);
                         visited[friends[j]] = 1;
                     }
                 }
