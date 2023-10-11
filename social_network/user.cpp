@@ -11,6 +11,7 @@ User::User()
     birth_year = 0;
     zip_code = 0;
     friends = std::vector<size_t>();
+    messages = std::vector<Post *>();
 }
 
 User::User(size_t input_id, std::string input_name, size_t input_birth_year, size_t input_zip_code, std::vector<size_t> input_friends)
@@ -95,4 +96,29 @@ void User::delete_friend(size_t friend_id)
             return;
         }
     }
+}
+
+void User::addPost(Post *post)
+{
+    messages.push_back(post);
+}
+
+std::string User::displayPosts(std::size_t howMany, bool showOnlyPublic)
+{
+    std::string returnString = "";
+    for (size_t i = 0; i < messages.size(); i++)
+    {
+        if (showOnlyPublic)
+        {
+            if (messages[i]->isPublic)
+            {
+                returnString += messages[i]->displayPost() + "\n";
+            }
+        }
+        else
+        {
+            returnString += messages[i]->displayPost() + "\n";
+        }
+    }
+    return returnString;
 }

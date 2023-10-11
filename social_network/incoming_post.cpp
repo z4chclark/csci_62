@@ -4,8 +4,10 @@
 #include <vector>
 #include "incoming_post.h"
 
-IncomingPost::IncomingPost()
+IncomingPost::IncomingPost() : Post()
 {
+    isPublic = false;
+    author = "";
 }
 
 IncomingPost::~IncomingPost()
@@ -22,7 +24,17 @@ IncomingPost::IncomingPost(std::size_t id,
     this->author = author;
 }
 
-std::string displayPost() 
+std::string IncomingPost::displayPost()
 {
-    // return std::to_string(id) + " " + message + " - " + std::to_string(likes) + " likes";
+    std::string returnString;
+    if (this->isPublic)
+    {
+        returnString = "Public: " + this->Post::displayPost();
+    }
+    else
+    {
+        returnString = "Private: " + this->Post::displayPost();
+    }
+
+    return returnString;
 }

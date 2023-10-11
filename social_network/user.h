@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include "post.h"
 
 class User
 {
@@ -14,6 +15,7 @@ private:
     size_t birth_year;
     size_t zip_code;
     std::vector<size_t> friends;
+    std::vector<Post *> messages;
 
 public:
     /**
@@ -156,14 +158,10 @@ public:
      */
     void set_zip_code(size_t new_zip_code);
 
-    /**
-     * @brief Sets the friend list of the User.
-     *
-     * @param new_friends A vector of IDs of the User's new friends.
-     *
-     * @pre None.
-     * @post The friend list of the User is set to the new_friends vector.
-     */
+    
+    void addPost(Post *post);
+
+    std::string displayPosts(std::size_t howMany, bool showOnlyPublic);
 };
 
 #endif

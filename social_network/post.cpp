@@ -17,7 +17,8 @@ Post::~Post()
 
 std::string Post::displayPost()
 {
-    // return std::to_string(id) + " " + message + " - " + std::to_string(likes) + " likes";
+    std::string returnString = this->getMessage() + "\n" + "Liked by " + std::to_string(this->getLikes()) + " people";
+    return returnString;
 }
 
 std::size_t Post::getID()
