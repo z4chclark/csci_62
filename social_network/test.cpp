@@ -1,4 +1,3 @@
-// no bugs caught
 
 #include <iostream>
 #include <string>
@@ -7,6 +6,8 @@
 
 #include "user.h"
 #include "network.h"
+#include "incoming_post.h"
+#include "post.h"
 
 using namespace std;
 
@@ -268,7 +269,6 @@ void test_suggestFriends()
 
     cout << "Passed!\n"
          << endl;
-    
 }
 
 void test_groups()
@@ -305,6 +305,64 @@ void test_groups()
          << endl;
 }
 
+void test_post_constructors()
+{
+    cout << "Testing Post constructors..." << endl;
+    Post *post = new Post();
+    assert(post->getID() == 0);
+
+    Post *post2 = new Post(1, "Hello World!", 0);
+    assert(post2->getLikes() == 0);
+
+    cout << "Passed!\n"
+         << endl;
+}
+
+void test_post_getters()
+{
+    cout << "Testing Post getters..." << endl;
+    Post *post = new Post(1, "Hello World!", 0);
+    assert(post->getID() == 1);
+    assert(post->getMessage() == "Hello World!");
+    assert(post->getLikes() == 0);
+
+    cout << "Passed!\n"
+         << endl;
+}
+
+void test_post_displayPost()
+{
+    cout << "Testing Post displayPost..." << endl;
+    Post *post = new Post(1, "Hello World!", 0);
+    assert(post->displayPost() == "Hello World!\nLiked by 0 people");
+
+    cout << "Passed!\n"
+         << endl;
+}
+
+void test_incoming_post_constructors()
+{
+    cout << "Testing IncomingPost constructors..." << endl;
+    IncomingPost *post = new IncomingPost();
+    assert(post->getID() == 0);
+
+    IncomingPost *post2 = new IncomingPost(1, "Hello World!", 0, true, "John Doe");
+    assert(post2->getLikes() == 0);
+
+    cout << "Passed!\n"
+         << endl;
+}
+
+void test_incoming_post_displayPost()
+{
+    cout << "Testing IncomingPost displayPost..." << endl;
+    IncomingPost *post = new IncomingPost(1, "Hello World!", 0, true, "John Doe");
+    assert(post->displayPost() == "Public: Hello World!\nLiked by 0 people");
+
+    cout << "Passed!\n"
+         << endl;
+}
+
 int main()
 {
     test_user_constructor();
@@ -321,6 +379,13 @@ int main()
     test_distanceUser();
     test_groups();
     test_suggestFriends();
-    
+
+    test_post_constructors();
+    test_post_getters();
+    test_post_displayPost();
+
+    test_incoming_post_constructors();
+    test_incoming_post_displayPost();
+
     return 0;
 }

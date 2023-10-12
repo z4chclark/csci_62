@@ -38,15 +38,6 @@ public:
     Post(std::size_t id, std::string message, std::size_t likes);
 
     /**
-     * @brief Display the post.
-     *
-     * @return std::string The post.
-     * @pre None.
-     * @post The post is displayed.
-     */
-    std::string virtual displayPost();
-
-    /**
      * @brief Get the ID of the post.
      *
      * @return std::size_t The ID of the post.
@@ -72,6 +63,15 @@ public:
      * @post The number of likes of the post is returned.
      */
     std::size_t getLikes();
+
+    /**
+     * @brief Display the post.
+     *
+     * @return std::string The post.
+     * @pre None.
+     * @post The post is displayed.
+     */
+    std::string virtual displayPost();
 };
 
 #endif

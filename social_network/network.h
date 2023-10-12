@@ -183,7 +183,7 @@ public:
      * @pre filename is a valid file path.
      * @post The posts from the file are added to the network.
      */
-    int readPosts(char *filename);
+    int readPosts(const char *filename);
 };
 
 #endif

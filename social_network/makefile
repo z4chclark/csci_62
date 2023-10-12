@@ -14,6 +14,6 @@ clean:
 run: output
 	./output < input.txt
 
-test: test.o network.o user.o
-	g++ -o test test.cpp network.cpp user.cpp
+test: test.o network.o user.o post.o incoming_post.o
+	g++ -o test test.cpp network.cpp user.cpp post.cpp incoming_post.cpp $(FLAGS)
 	./test

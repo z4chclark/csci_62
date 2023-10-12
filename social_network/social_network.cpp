@@ -64,6 +64,15 @@ int main()
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+    string filename2;
+    cin >> filename2;
+    cout << "\n\n";
+    const char *c2 = filename2.c_str();
+    network->readPosts(c2);
+
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
     string input;
 
     while (true)
@@ -79,7 +88,8 @@ int main()
              << "8. Explore neighbors\n"
              << "9. Suggest friends\n"
              << "10. Print groups\n"
-             << "11. Exit\n"
+             << "11. Recent posts\n"
+             << "12. Exit\n"
              << endl;
 
         getline(cin, input);
@@ -245,8 +255,9 @@ int main()
 
             size_t *score = new size_t;
             vector<size_t> suggested_friends = network->suggestFriends(id1, *score);
-            
-            if (*score == -1) {
+
+            if (*score == -1)
+            {
                 cout << "None" << endl;
                 break;
             }
@@ -282,6 +293,16 @@ int main()
         }
 
         case 11:
+        {
+            string name = v[1] + ' ' + v[2];
+            string posts = network->displayPost(name, stoi(v[3]), false);
+
+            cout << posts << endl;
+
+            break;
+        }
+
+        case 12:
             exit(0);
 
         default:

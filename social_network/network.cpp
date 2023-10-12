@@ -405,7 +405,7 @@ std::string Network::displayPost(std::string name, std::size_t howMany, bool sho
     return user->displayPosts(howMany, showOnlyPublic);
 }
 
-int Network::readPosts(char *filename)
+int Network::readPosts(const char *filename)
 {
     std::ifstream file(filename);
     if (!file.is_open())
@@ -441,9 +441,8 @@ int Network::readPosts(char *filename)
 
         std::getline(file, incoming_line);
 
-        if (incoming_line == "\n") // check if next line is empty
+        if (incoming_line == "") // check if next line is empty
         {
-    
             addPost(owner_id, message, likes, false, owner_id, false);
         }
         else
