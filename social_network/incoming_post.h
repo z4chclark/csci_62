@@ -3,7 +3,7 @@
 
 #include "post.h"
 
-class IncomingPost : Post
+class IncomingPost : public Post
 {
 private:
     bool isPublic;

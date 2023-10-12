@@ -6,8 +6,11 @@
 #include <sstream>
 #include <algorithm>
 #include <queue>
+
 #include "user.h"
 #include "network.h"
+#include "post.h"
+#include "incoming_post.h"
 
 Network::Network()
 {
@@ -291,7 +294,7 @@ std::vector<std::size_t> Network::suggestFriends(std::size_t who, std::size_t &s
         {
             suggested_friends.push_back(current);
         }
-        
+
         std::vector<size_t> friends = get_user(current)->get_friends();
 
         for (std::size_t i = 0; i < friends.size(); i++)
@@ -337,7 +340,7 @@ std::vector<std::size_t> Network::suggestFriends(std::size_t who, std::size_t &s
     {
         score = -1;
     }
-    
+
     return best_candidates;
 }
 
@@ -346,7 +349,6 @@ std::vector<std::vector<std::size_t> > Network::groups()
     std::vector<std::vector<std::size_t> > groups;
     std::vector<std::size_t> visited(num_users(), 0);
     std::vector<std::size_t> stack;
-
 
     for (std::size_t i = 0; i < num_users(); i++)
     {
@@ -378,3 +380,94 @@ std::vector<std::vector<std::size_t> > Network::groups()
     }
     return groups;
 }
+
+void Network::addPost(std::size_t ownerId, std::string message, std::size_t likes, bool incoming, std::size_t author, bool isPublic)
+{
+    User *user = get_user(ownerId);
+    size_t messages_size = get_user(ownerId)->get_messages().size();
+    std::string author_name = get_user(author)->get_name();
+
+    if (incoming)
+    {
+        IncomingPost *incoming_post = new IncomingPost(messages_size, message, likes, isPublic, author_name);
+        user->addPost(incoming_post);
+    }
+    else
+    {
+        Post *post = new Post(messages_size, message, likes);
+        user->addPost(post);
+    }
+}
+
+std::string Network::displayPost(std::string name, std::size_t howMany, bool showOnlyPublic)
+{
+    User *user = get_user(get_id(name));
+    return user->displayPosts(howMany, showOnlyPublic);
+}
+
+int Network::readPosts(char *filename)
+{
+    std::ifstream file(filename);
+    if (!file.is_open())
+    {
+        return -1; // file not open or not found
+    }
+
+    int num_posts;
+    file >> num_posts;
+    file.ignore();
+
+    std::size_t id;
+    std::string message;
+    std::size_t likes;
+    bool isPublic;
+    std::size_t owner_id;
+    std::string incoming_line;
+    std::string author_name;
+
+    for(size_t i = 0; i < num_posts; i++)
+    {
+        file >> id;
+        file.ignore();
+
+        std::getline(file, message);
+        message.erase(0, 1);
+
+        file >> owner_id;
+        file.ignore();
+
+        file >> likes;
+        file.ignore();
+
+        std::getline(file, incoming_line);
+
+        if (incoming_line == "\n") // check if next line is empty
+        {
+    
+            addPost(owner_id, message, likes, false, owner_id, false);
+        }
+        else
+        {   
+            std::getline(file, author_name);
+            author_name.erase(0, 1);
+
+            incoming_line.erase(0, 1);
+
+            if (incoming_line == "public")
+            {
+                isPublic = true;
+            }
+            else
+            {
+                isPublic = false;
+            }
+
+            addPost(owner_id, message, likes, true, get_id(author_name), isPublic);
+        }
+    }
+
+    file.close();
+    return 0;
+
+}
+

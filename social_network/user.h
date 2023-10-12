@@ -119,6 +119,16 @@ public:
     std::vector<size_t> get_friends();
 
     /**
+     * @brief Returns a vector of the User's posts.
+     *
+     * @return A vector of the User's posts.
+     *
+     * @pre None.
+     * @post None.
+     */
+    std::vector<Post *> get_messages();
+
+    /**
      * @brief Sets the ID of the User.
      *
      * @param new_id The new ID of the User.
@@ -158,9 +168,27 @@ public:
      */
     void set_zip_code(size_t new_zip_code);
 
-    
+    /**
+     * @brief Adds a post to the User's post list.
+     * 
+     * @param post The post to add.
+     * 
+     * @pre None.
+     * @post The post is added to the User's post list.
+    */
     void addPost(Post *post);
 
+    /**
+     * @brief Displays the User's posts.
+     * 
+     * @param howMany The number of posts to display.
+     * @param showOnlyPublic Whether to display only public posts.
+     * 
+     * @return std::string The User's posts.
+     * 
+     * @pre None.
+     * @post The User's posts are displayed.
+    */
     std::string displayPosts(std::size_t howMany, bool showOnlyPublic);
 };
 

@@ -4,15 +4,22 @@
 #include <vector>
 #include "post.h"
 
+Post::Post()
+{
+    id = 0;
+    message = "";
+    likes = 0;
+}
+
+Post::~Post()
+{
+}
+
 Post::Post(std::size_t id, std::string message, std::size_t likes)
 {
     this->id = id;
     this->message = message;
     this->likes = likes;
-}
-
-Post::~Post()
-{
 }
 
 std::string Post::displayPost()

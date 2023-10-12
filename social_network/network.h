@@ -148,6 +148,42 @@ public:
      * @return vector<vector<std::size_t> > vector of vectors of users in each group.
      */
     std::vector<std::vector<std::size_t> > groups();
+
+    /**
+     * @brief Add a post to the network.
+     *
+     * @param ownerId The ID of the owner of the post.
+     * @param message The message of the post.
+     * @param likes The number of likes of the post.
+     * @param incoming Whether the post is incoming or outgoing.
+     * @param author The author of the post.
+     * @param isPublic Whether the post is public or not.
+     * @pre None.
+     * @post A new post is added to the network.
+     */
+    void addPost(std::size_t ownerId, std::string message, std::size_t likes, bool incoming, std::size_t author, bool isPublic);
+
+    /**
+     * @brief Display the posts of a user.
+     *
+     * @param name The name of the user.
+     * @param howMany The number of posts to display.
+     * @param showOnlyPublic Whether to show only public posts or not.
+     * @return std::string The posts of the user.
+     * @pre name is a valid user name in the network.
+     * @post None.
+     */
+    std::string displayPost(std::string name, std::size_t howMany, bool showOnlyPublic);
+
+    /**
+     * @brief Read posts from a file.
+     *
+     * @param filename The name of the file to read from.
+     * @return int 0 if the file was successfully read, -1 otherwise.
+     * @pre filename is a valid file path.
+     * @post The posts from the file are added to the network.
+     */
+    int readPosts(char *filename);
 };
 
 #endif

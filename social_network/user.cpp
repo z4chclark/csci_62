@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "user.h"
+#include "incoming_post.h"
 
 User::User()
 {
@@ -27,7 +28,6 @@ User::~User()
 {
 }
 
-// getters
 size_t User::get_id()
 {
     return id;
@@ -53,7 +53,11 @@ std::vector<size_t> User::get_friends()
     return friends;
 }
 
-// setters
+std::vector<Post *> User::get_messages()
+{
+    return messages;
+}
+
 void User::set_id(size_t input_id)
 {
     id = input_id;
@@ -99,26 +103,65 @@ void User::delete_friend(size_t friend_id)
 }
 
 void User::addPost(Post *post)
-{
+{   
     messages.push_back(post);
 }
 
 std::string User::displayPosts(std::size_t howMany, bool showOnlyPublic)
 {
-    std::string returnString = "";
-    for (size_t i = 0; i < messages.size(); i++)
+    std::string returnString;
+    size_t count = 0;
+    std::vector<Post *> messages_copy = messages;
+    std::reverse(messages_copy.begin(), messages_copy.end());
+
+    if (!showOnlyPublic)
     {
-        if (showOnlyPublic)
+        for (Post *current_post : messages_copy)
         {
-            if (messages[i]->isPublic)
+            returnString += current_post->displayPost() + "\n\n";
+            count++;
+            if (count == howMany)
             {
-                returnString += messages[i]->displayPost() + "\n";
+                return returnString;
             }
         }
-        else
-        {
-            returnString += messages[i]->displayPost() + "\n";
-        }
+        return returnString;
     }
-    return returnString;
+
+    else
+    {
+        for (Post *current_post : messages_copy)
+        {
+            if (typeid(current_post).name() == "IncomingPost")
+            {
+                IncomingPost *current_incoming_post = (IncomingPost *)current_post;
+                std::string s = current_incoming_post->displayPost();
+
+                if (s[2] == 'u') // check if returned string is public
+                {
+                    returnString += current_post->displayPost() + "\n\n";
+                    count++;
+                    if (count == howMany)
+                    {
+                        return returnString;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            else
+            {
+                returnString += current_post->displayPost() + "\n\n";
+                count++;
+                if (count == howMany)
+                {
+                    return returnString;
+                }
+            }
+        }
+
+        return returnString;
+    }
 }

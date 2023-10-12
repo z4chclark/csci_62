@@ -2,8 +2,8 @@ COMP = g++
 FLAGS = -Wall -g
 
 
-output: social_network.o network.o user.o
-	$(COMP) -g social_network.o network.o user.o -o $@ $(FLAGS)
+output: social_network.o network.o user.o post.o incoming_post.o
+	$(COMP) -g social_network.o network.o user.o post.o incoming_post.o -o $@ $(FLAGS)
 
 %.o: %.cpp
 	$(COMP) -c $< -o $@ $(FLAGS)
