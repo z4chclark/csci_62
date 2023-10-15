@@ -1,9 +1,11 @@
 #include "socialnetworkwindow.h"
+#include "network.h"
+#include "user.h"
+#include "post.h"
+#include "incoming_post.h"
 
 #include <QApplication>
 
-#include "network.h"
-#include "user.h"
 
 int main(int argc, char *argv[])
 {
