@@ -172,7 +172,7 @@ size_t Network::get_id(std::string name)
             return users[i]->get_id();
         }
     }
-    return -1;
+    return std::string::npos;
 }
 
 User *Network::get_user(size_t id)

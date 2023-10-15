@@ -25,5 +25,7 @@ public:
 private:
     Ui::SocialNetworkWindow *ui;
     Network *network;
+    User *logged_in_user;
+    User *current_user;
 };
 #endif // SOCIALNETWORKWINDOW_H

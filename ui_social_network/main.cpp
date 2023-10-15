@@ -1,8 +1,4 @@
 #include "socialnetworkwindow.h"
-#include "network.h"
-#include "user.h"
-#include "post.h"
-#include "incoming_post.h"
 
 #include <QApplication>
 
