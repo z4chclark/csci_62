@@ -89,7 +89,7 @@ public:
      * @pre filename is a valid file path.
      * @post The user data is written to the file.
      */
-    int write_users(const char *filename);
+    int write_users(char *filename);
 
     /**
      * @brief Get the number of users in the network.

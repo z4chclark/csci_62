@@ -61,6 +61,8 @@ int main()
     const char *c = filename.c_str();
     network->read_users(c);
 
+    cout << network->num_users() << " users read" << endl;
+
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 

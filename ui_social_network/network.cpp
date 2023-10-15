@@ -37,6 +37,8 @@ int Network::read_users(const char *filename)
     file >> num_users;
     file.ignore();
 
+    std::cout << num_users << std::endl;
+
     for (int i = 0; i < num_users; i++)
     {
         User *user = new User();
@@ -79,7 +81,7 @@ int Network::read_users(const char *filename)
     return 0;
 }
 
-int Network::write_users(const char *filename)
+int Network::write_users(char *filename)
 {
     std::ofstream output_file(filename);
 
