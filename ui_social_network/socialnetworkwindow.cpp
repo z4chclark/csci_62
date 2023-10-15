@@ -6,8 +6,6 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
     , ui(new Ui::SocialNetworkWindow)
 {
     ui->setupUi(this);
-
-
 }
 
 SocialNetworkWindow::~SocialNetworkWindow()
