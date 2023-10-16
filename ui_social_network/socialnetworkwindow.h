@@ -20,6 +20,12 @@ public:
     ~SocialNetworkWindow();
 
     void myLoginClick();
+    void friendListClick(int row, int column);
+    void userProfile();
+    void friendProfile();
+    void homeButtonClick();
+    void addFriendButtonClick();
+    void suggestFriendListClick(int row, int column);
 
 
 private:

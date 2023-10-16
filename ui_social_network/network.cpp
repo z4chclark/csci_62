@@ -37,8 +37,6 @@ int Network::read_users(const char *filename)
     file >> num_users;
     file.ignore();
 
-    std::cout << num_users << std::endl;
-
     for (int i = 0; i < num_users; i++)
     {
         User *user = new User();
@@ -427,7 +425,7 @@ int Network::readPosts(const char *filename)
     std::string incoming_line;
     std::string author_name;
 
-    for (size_t i = 0; i < num_posts; i++)
+    for (int i = 0; i < num_posts; i++)
     {
         file >> id;
         file.ignore();
