@@ -69,7 +69,7 @@ public:
         friendList->setHorizontalHeaderItem(0, __qtablewidgetitem);
         friendList->setObjectName("friendList");
         friendList->setEnabled(true);
-        friendList->setGeometry(QRect(0, 320, 231, 201));
+        friendList->setGeometry(QRect(0, 320, 221, 201));
         QSizePolicy sizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);

@@ -4,8 +4,8 @@
 #include <QMainWindow>
 #include "network.h"
 #include "user.h"
-#include "post.h"
-#include "incoming_post.h"
+//#include "post.h"
+//#include "incoming_post.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SocialNetworkWindow; }
@@ -23,7 +23,6 @@ public:
     void friendListClick(int row, int column);
     void userProfile();
     void friendProfile();
-    void homeButtonClick();
     void addFriendButtonClick();
     void suggestFriendListClick(int row, int column);
 

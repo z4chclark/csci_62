@@ -26,7 +26,7 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
 
     connect(ui->friendList, &QTableWidget::cellClicked, this, &SocialNetworkWindow::friendListClick);
 
-    connect(ui->homeButton, &QPushButton::clicked, this, &SocialNetworkWindow::homeButtonClick);
+    connect(ui->homeButton, &QPushButton::clicked, this, &SocialNetworkWindow::userProfile);
 
     connect(ui->addFriendButton, &QPushButton::clicked, this, &SocialNetworkWindow::addFriendButtonClick);
 
@@ -120,7 +120,7 @@ void SocialNetworkWindow::userProfile()
 
 
 
-    QString posts = QString::fromStdString(logged_in_user->displayPosts(5, false));
+    QString posts = QString::fromStdString(network->displayPost(logged_in_user->get_name(), 5, false));
     ui->postsLabel->setText(posts); // set posts for logged in user
 
 
@@ -149,7 +149,7 @@ void SocialNetworkWindow::friendProfile()
         count++;
     }
 
-    QString posts = QString::fromStdString(current_user->displayPosts(5, true));
+    QString posts = QString::fromStdString(network->displayPost(current_user->get_name(), 5, true));
     ui->postsLabel->setText(posts);
 
 
@@ -164,13 +164,6 @@ void SocialNetworkWindow::suggestFriendListClick(int row, int column)
     network->add_connection(logged_in_user->get_name(), current_user_name);
     userProfile();
 
-}
-
-
-
-void SocialNetworkWindow::homeButtonClick()
-{
-    userProfile();
 }
 
 void SocialNetworkWindow::addFriendButtonClick()

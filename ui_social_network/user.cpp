@@ -4,6 +4,7 @@
 #include <vector>
 #include "user.h"
 #include "incoming_post.h"
+#include "post.h"
 
 User::User()
 {
@@ -116,32 +117,34 @@ std::string User::displayPosts(std::size_t howMany, bool showOnlyPublic)
 
     if (!showOnlyPublic)
     {
-        for (Post *current_post : messages_copy)
+        for (auto *current_post : messages_copy)
         {
             returnString += current_post->displayPost() + "\n\n";
             count++;
-            if (count == howMany)
+            if (count >= howMany)
             {
                 return returnString;
             }
         }
         return returnString;
     }
-
     else
     {
-        for (Post *current_post : messages_copy)
+
+
+        for (auto *current_post : messages_copy)
         {
-            if (typeid(current_post).name() == "IncomingPost")
+
+            if (dynamic_cast<IncomingPost*>(current_post) != nullptr)
             {
                 IncomingPost *current_incoming_post = (IncomingPost *)current_post;
                 std::string s = current_incoming_post->displayPost();
 
-                if (s[2] == 'u') // check if returned string is public
+                if (s[1] == 'u') // check if returned string is public
                 {
-                    returnString += current_post->displayPost() + "\n\n";
+                    returnString += s + "\n\n";
                     count++;
-                    if (count == howMany)
+                    if (count >= howMany)
                     {
                         return returnString;
                     }
@@ -155,13 +158,12 @@ std::string User::displayPosts(std::size_t howMany, bool showOnlyPublic)
             {
                 returnString += current_post->displayPost() + "\n\n";
                 count++;
-                if (count == howMany)
+                if (count >= howMany)
                 {
                     return returnString;
                 }
             }
         }
-
-        return returnString;
     }
+    return returnString;
 }

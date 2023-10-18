@@ -71,7 +71,7 @@ public:
      * @pre None.
      * @post The post is displayed.
      */
-    std::string virtual displayPost();
+    virtual std::string displayPost();
 };
 
 #endif
