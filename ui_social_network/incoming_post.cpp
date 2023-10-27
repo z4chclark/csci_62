@@ -30,11 +30,11 @@ std::string IncomingPost::displayPost()
     std::string returnString;
     if (this->isPublic)
     {
-        returnString = "Public: " + this->Post::displayPost();
+        returnString = "Public: " + this->Post::displayPost() + "\nFrom: " + author;
     }
     else
     {
-        returnString = "Private: " + this->Post::displayPost();
+        returnString = "Private: " + this->Post::displayPost() + "\nFrom: " + author; 
     }
 
     return returnString;

@@ -389,12 +389,12 @@ void Network::addPost(std::size_t ownerId, std::string message, std::size_t like
 
     if (incoming)
     {
-        IncomingPost *incoming_post = new IncomingPost(messages_size, message, likes, isPublic, author_name);
+        IncomingPost *incoming_post = new IncomingPost(messages_size + 1, message, likes, isPublic, author_name);
         user->addPost(incoming_post);
     }
     else
     {
-        Post *post = new Post(messages_size, message, likes);
+        Post *post = new Post(messages_size + 1, message, likes);
         user->addPost(post);
     }
 }

@@ -65,9 +65,7 @@ OBJECTS       = incoming_post.o \
 		socialnetworkwindow.o \
 		user.o \
 		moc_socialnetworkwindow.o
-DIST          = ../ui_social_network/posts.txt \
-		../ui_social_network/social_network.txt \
-		../../../Qt/6.6.0/macos/mkspecs/features/spec_pre.prf \
+DIST          = ../../../Qt/6.6.0/macos/mkspecs/features/spec_pre.prf \
 		../../../Qt/6.6.0/macos/mkspecs/features/device_config.prf \
 		../../../Qt/6.6.0/macos/mkspecs/common/unix.conf \
 		../../../Qt/6.6.0/macos/mkspecs/common/mac.conf \
@@ -1134,7 +1132,6 @@ moc_socialnetworkwindow.cpp: ../ui_social_network/socialnetworkwindow.h \
 		../ui_social_network/network.h \
 		../ui_social_network/user.h \
 		../ui_social_network/post.h \
-		../ui_social_network/incoming_post.h \
 		../../../Qt/6.6.0/macos/libexec/moc
 	/Users/zach/Qt/6.6.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=14 -D__clang_minor__=0 -D__clang_patchlevel__=3 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/zach/Qt/6.6.0/macos/mkspecs/macx-clang -I/Users/zach/Documents/csci62/ui_social_network -I/Users/zach/Qt/6.6.0/macos/lib/QtWidgets.framework/Headers -I/Users/zach/Qt/6.6.0/macos/lib/QtGui.framework/Headers -I/Users/zach/Qt/6.6.0/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/zach/Qt/6.6.0/macos/lib ../ui_social_network/socialnetworkwindow.h -o moc_socialnetworkwindow.cpp
 
@@ -1171,7 +1168,6 @@ main.o: ../ui_social_network/main.cpp ../ui_social_network/socialnetworkwindow.h
 		../ui_social_network/network.h \
 		../ui_social_network/user.h \
 		../ui_social_network/post.h \
-		../ui_social_network/incoming_post.h \
 		../../../Qt/6.6.0/macos/lib/QtWidgets.framework/Headers/QApplication \
 		../../../Qt/6.6.0/macos/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../ui_social_network/main.cpp
@@ -1191,7 +1187,6 @@ socialnetworkwindow.o: ../ui_social_network/socialnetworkwindow.cpp ../ui_social
 		../ui_social_network/network.h \
 		../ui_social_network/user.h \
 		../ui_social_network/post.h \
-		../ui_social_network/incoming_post.h \
 		ui_socialnetworkwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socialnetworkwindow.o ../ui_social_network/socialnetworkwindow.cpp
 
