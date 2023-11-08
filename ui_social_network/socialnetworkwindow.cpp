@@ -22,7 +22,6 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
     network->readPosts("posts.txt");
 
     connect(ui->loginButton, &QPushButton::clicked, this, &SocialNetworkWindow::myLoginClick);
-    //connect(ui->loginButton, &QKeyEvent:: , this, &SocialNetworkWindow::myLoginClick);
 
     connect(ui->friendList, &QTableWidget::cellClicked, this, &SocialNetworkWindow::friendListClick);
 
@@ -158,8 +157,6 @@ void SocialNetworkWindow::friendProfile()
 void SocialNetworkWindow::suggestFriendListClick(int row, int column)
 {
     std::string current_user_name = (ui->suggestFriendList->item(row, column)->text().toStdString()); // get user from cell
-
-    //std::cout << current_user_name << std::endl;
 
     network->add_connection(logged_in_user->get_name(), current_user_name);
     userProfile();
