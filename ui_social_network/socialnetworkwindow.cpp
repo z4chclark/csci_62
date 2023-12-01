@@ -77,14 +77,14 @@ void SocialNetworkWindow::myLoginClick()
 void SocialNetworkWindow::homeButtonClick()
 {
     // add the current page to the stack and change the ui to the logged in user page
-    backStack.push(current_user->get_name());
+    backStack.push(current_user);
     userProfile();
 }
 
 
 void SocialNetworkWindow::friendListClick(int row, int column)
 {
-    backStack.push(current_user->get_name());
+    backStack.push(current_user);
 
     std::string current_user_name = (ui->friendList->item(row, column)->text().toStdString()); // get user from cell
     current_user = network->get_user(network->get_id(current_user_name));
@@ -194,18 +194,21 @@ void SocialNetworkWindow::backButtonClick()
 {
     // send us to login page if stack empty otherwise send us to previous page
 
+
+
     if (backStack.empty())
     {
         loginPage();
     }
-    else if (backStack.top() == logged_in_user->get_name())
+    else if (backStack.top() == logged_in_user)
     {
+        current_user = backStack.top();
         backStack.pop();
         userProfile();
     }
     else
     {
-        current_user = network->get_user(network->get_id(backStack.top()));
+        current_user = backStack.top();
         backStack.pop();
         friendProfile();
     }

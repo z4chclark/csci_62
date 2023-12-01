@@ -34,7 +34,7 @@ private:
     Network *network;
     User *logged_in_user;
     User *current_user;
-    std::stack<std::string> backStack;
+    std::stack<User*> backStack;
 
 };
 #endif // SOCIALNETWORKWINDOW_H
