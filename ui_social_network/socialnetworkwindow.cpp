@@ -1,3 +1,5 @@
+#include <stack>
+
 #include "socialnetworkwindow.h"
 #include "ui_socialnetworkwindow.h"
 #include "network.h"
@@ -10,49 +12,59 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
     , logged_in_user(new User)
     , current_user(new User)
 {
+    network->read_users("social_network.txt");
+    network->readPosts("posts.txt");
+
     ui->setupUi(this);
+    loginPage();
+
+    connect(ui->loginButton, &QPushButton::clicked, this, &SocialNetworkWindow::myLoginClick);
+
+    connect(ui->friendList, &QTableWidget::cellClicked, this, &SocialNetworkWindow::friendListClick);
+
+    connect(ui->homeButton, &QPushButton::clicked, this, &SocialNetworkWindow::homeButtonClick);
+
+    connect(ui->addFriendButton, &QPushButton::clicked, this, &SocialNetworkWindow::addFriendButtonClick);
+
+    connect(ui->suggestFriendList, &QTableWidget::cellClicked, this, &SocialNetworkWindow::suggestFriendListClick);
+
+    connect(ui->backButton, &QPushButton::clicked, this, &SocialNetworkWindow::backButtonClick);
+
+
+}
+
+void SocialNetworkWindow::loginPage()
+{
+    ui->loginText->setText("");
+
+    ui->loginButton->show();
+    ui->loginLabel->show();
+    ui->loginText->show();
+
     ui->profileLabel->hide();
     ui->friendList->hide();
     ui->suggestFriendList->hide();
     ui->postsLabel->hide();
     ui->homeButton->hide();
     ui->addFriendButton->hide();
-
-    network->read_users("social_network.txt");
-    network->readPosts("posts.txt");
-
-    connect(ui->loginButton, &QPushButton::clicked, this, &SocialNetworkWindow::myLoginClick);
-
-    connect(ui->friendList, &QTableWidget::cellClicked, this, &SocialNetworkWindow::friendListClick);
-
-    connect(ui->homeButton, &QPushButton::clicked, this, &SocialNetworkWindow::userProfile);
-
-    connect(ui->addFriendButton, &QPushButton::clicked, this, &SocialNetworkWindow::addFriendButtonClick);
-
-    connect(ui->suggestFriendList, &QTableWidget::cellClicked, this, &SocialNetworkWindow::suggestFriendListClick);
-
-
-
+    ui->backButton->hide();
 }
 
 void SocialNetworkWindow::myLoginClick()
 {
+    // get name of user and set them to logged in user
     std::string name = ui->loginText->toPlainText().toStdString();
     size_t id = network->get_id(name);
     if (!(id == std::string::npos))
     {
-
-        ui->loginButton->hide(); // hide login page
+        ui->loginButton->hide();
         ui->loginLabel->hide();
         ui->loginText->hide();
+
         logged_in_user = network->get_user(id);
         current_user = network->get_user(id);
 
         userProfile();
-
-        ui->profileLabel->show();
-        ui->friendList->show();
-        ui->postsLabel->show();
     }
     else
     {
@@ -60,12 +72,19 @@ void SocialNetworkWindow::myLoginClick()
         ui->loginText->clear();
     }
 
+}
 
+void SocialNetworkWindow::homeButtonClick()
+{
+    // add the current page to the stack and change the ui to the logged in user page
+    backStack.push(current_user->get_name());
+    userProfile();
 }
 
 
 void SocialNetworkWindow::friendListClick(int row, int column)
 {
+    backStack.push(current_user->get_name());
 
     std::string current_user_name = (ui->friendList->item(row, column)->text().toStdString()); // get user from cell
     current_user = network->get_user(network->get_id(current_user_name));
@@ -82,6 +101,12 @@ void SocialNetworkWindow::friendListClick(int row, int column)
 
 void SocialNetworkWindow::userProfile()
 {
+    ui->profileLabel->show();
+    ui->friendList->show();
+    ui->postsLabel->show();
+    ui->backButton->show();
+
+
     ui->profileLabel->setText("My Profile");
     ui->homeButton->hide();
     ui->addFriendButton->hide();
@@ -116,12 +141,8 @@ void SocialNetworkWindow::userProfile()
         count++;
     }
 
-
-
-
     QString posts = QString::fromStdString(network->displayPost(logged_in_user->get_name(), 5, false));
     ui->postsLabel->setText(posts); // set posts for logged in user
-
 
 }
 
@@ -151,11 +172,11 @@ void SocialNetworkWindow::friendProfile()
     QString posts = QString::fromStdString(network->displayPost(current_user->get_name(), 5, true));
     ui->postsLabel->setText(posts);
 
-
 }
 
 void SocialNetworkWindow::suggestFriendListClick(int row, int column)
 {
+    // add friend to friends list and update userProfile
     std::string current_user_name = (ui->suggestFriendList->item(row, column)->text().toStdString()); // get user from cell
 
     network->add_connection(logged_in_user->get_name(), current_user_name);
@@ -166,6 +187,28 @@ void SocialNetworkWindow::suggestFriendListClick(int row, int column)
 void SocialNetworkWindow::addFriendButtonClick()
 {
     network->add_connection(logged_in_user->get_name(), current_user->get_name());
+}
+
+void SocialNetworkWindow::backButtonClick()
+
+{
+    // send us to login page if stack empty otherwise send us to previous page
+
+    if (backStack.empty())
+    {
+        loginPage();
+    }
+    else if (backStack.top() == logged_in_user->get_name())
+    {
+        backStack.pop();
+        userProfile();
+    }
+    else
+    {
+        current_user = network->get_user(network->get_id(backStack.top()));
+        backStack.pop();
+        friendProfile();
+    }
 }
 
 SocialNetworkWindow::~SocialNetworkWindow()

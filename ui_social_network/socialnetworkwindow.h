@@ -2,10 +2,10 @@
 #define SOCIALNETWORKWINDOW_H
 
 #include <QMainWindow>
+#include <stack>
 #include "network.h"
 #include "user.h"
-//#include "post.h"
-//#include "incoming_post.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SocialNetworkWindow; }
@@ -19,18 +19,22 @@ public:
     SocialNetworkWindow(QWidget *parent = nullptr);
     ~SocialNetworkWindow();
 
+    void loginPage();
     void myLoginClick();
+    void homeButtonClick();
     void friendListClick(int row, int column);
     void userProfile();
     void friendProfile();
     void addFriendButtonClick();
     void suggestFriendListClick(int row, int column);
-
+    void backButtonClick();
 
 private:
     Ui::SocialNetworkWindow *ui;
     Network *network;
     User *logged_in_user;
     User *current_user;
+    std::stack<std::string> backStack;
+
 };
 #endif // SOCIALNETWORKWINDOW_H

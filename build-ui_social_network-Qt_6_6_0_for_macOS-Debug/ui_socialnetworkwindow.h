@@ -36,6 +36,7 @@ public:
     QPushButton *homeButton;
     QPushButton *addFriendButton;
     QTableWidget *suggestFriendList;
+    QPushButton *backButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -98,6 +99,9 @@ public:
         suggestFriendList->setGeometry(QRect(565, 10, 221, 192));
         suggestFriendList->horizontalHeader()->setMinimumSectionSize(19);
         suggestFriendList->horizontalHeader()->setDefaultSectionSize(200);
+        backButton = new QPushButton(centralwidget);
+        backButton->setObjectName("backButton");
+        backButton->setGeometry(QRect(120, 10, 100, 32));
         SocialNetworkWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(SocialNetworkWindow);
         menubar->setObjectName("menubar");
@@ -125,6 +129,7 @@ public:
         addFriendButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Add Friend", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = suggestFriendList->horizontalHeaderItem(0);
         ___qtablewidgetitem1->setText(QCoreApplication::translate("SocialNetworkWindow", "Suggested Friends", nullptr));
+        backButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Back", nullptr));
     } // retranslateUi
 
 };
